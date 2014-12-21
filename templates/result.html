@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} Results {% endblock %}
+{% block content %}
+    {% if results|length > 0 %}
+        {% if keyword == "" %}
+            <h1>All E-Books</h1>
+        {% else %}
+            <h1>Results for: "{{ keyword }}"</h1>
+        {% endif %}
+        <ul class="list-group">
+            {% for result in results %}
+                <a href="{{ result['link'] }}"> <li class="list-group-item">{{ result['name'] }}</li> </a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1> No results found for "{{ keyword }}". </h1>
+    {%endif %}
+{% endblock content %}
