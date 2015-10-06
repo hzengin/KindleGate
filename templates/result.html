@@ -8,8 +8,11 @@
             <h1>Results for: "{{ keyword }}"</h1>
         {% endif %}
         <ul class="list-group">
-            {% for result in results %}
+            {% for letter, group in results %}
+                <h3>{{letter}}</h3>
+                {% for result in group %}
                 <a href="{{ result['link'] }}"> <li class="list-group-item">{{ result['name'] }}</li> </a>
+                {% endfor %}
             {% endfor %}
         </ul>
     {% else %}

@@ -15,8 +15,10 @@ def search():
         keyword = request.form['keyword']
     else:
         keyword = ""  # every string contains empty string
-    result = [{'link': create_link(epub), 'name': epub} for epub in get_epubs(epub_directory_path, keyword=keyword)]
-    return render_template('result.html', keyword=keyword, results=result)
+    epubs = get_epubs(epub_directory_path, keyword=keyword)
+    epubs.sort()
+    result = [{'link': create_link(epub), 'name': epub} for epub in epubs]
+    return render_template('result.html', keyword=keyword, results=group_results(result))
 
 @app.route('/ebook/<name>', methods=['GET'])  # convert and send me book
 @requires_auth

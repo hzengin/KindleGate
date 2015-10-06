@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile, dirname, realpath, join
 import subprocess
 from flask import url_for
+import collections
 
 epub_directory_path = "/home/hzengin-dev/KindleGate/epubs/"  # path that stores our archive
 static_path = dirname(realpath(__file__))+"/static/"  # finding where is our "static" folder
@@ -34,3 +35,9 @@ def str_to_base64(s):
 def base64_to_str(b):
     return base64.b64decode(b.encode('utf-8')).decode('utf-8')
 
+
+def group_results(results):
+    groups = collections.defaultdict(list)
+    for result in results:
+        groups[result["name"][0]].append(result)
+    return collections.OrderedDict(sorted(groups.items())).items()
